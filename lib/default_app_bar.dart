@@ -45,6 +45,7 @@ class _DefaultAppBarState extends State<DefaultAppBar>
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
 
     return Stack(
       children: <Widget>[
@@ -54,8 +55,13 @@ class _DefaultAppBarState extends State<DefaultAppBar>
           actions: <Widget>[
             GestureDetector(
                 onTapUp: onSearchTapUp,
-                child: IconButton(icon: Icon(Icons.search, color: Colors.white,), onPressed: null)),
-            IconButton(icon: Icon(Icons.more_vert), onPressed: null)
+                child: IconButton(
+                    icon: Icon(
+                      Icons.search,
+                      color: Colors.white,
+                    ),
+                    onPressed: null)),
+            IconButton(icon: Icon(Icons.more_vert), onPressed: null),
           ],
         ),
         AnimatedBuilder(
@@ -63,10 +69,10 @@ class _DefaultAppBarState extends State<DefaultAppBar>
           builder: (context, child) {
             return CustomPaint(
               painter: RipplePainter(
-                containerHeight: widget.preferredSize.height,
+                containerHeight: screenHeight, //widget.preferredSize.height,
                 center: Offset(rippleStartX ?? 0, rippleStartY ?? 0),
                 // increase radius in % from 0% to 100% of screenWidth
-                radius: _animation.value * screenWidth,
+                radius: _animation.value * (screenHeight + screenWidth),
                 context: context,
               ),
             );
